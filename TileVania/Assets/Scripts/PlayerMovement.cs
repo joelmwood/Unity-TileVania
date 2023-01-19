@@ -12,14 +12,14 @@ public class PlayerMovement : MonoBehaviour
     Rigidbody2D myRigidbody;
     Animator myAnimator;
 
-    Collider2D myCollider2d;
+    CapsuleCollider2D myCapsuleCollider;
 
     // Start is called before the first frame update
     void Start()
     {
         myRigidbody = GetComponent<Rigidbody2D>();
         myAnimator = GetComponent<Animator>();
-        myCollider2d = GetComponent<Collider2D>();
+        myCapsuleCollider = GetComponent<CapsuleCollider2D>();
 
     }
 
@@ -39,7 +39,7 @@ public class PlayerMovement : MonoBehaviour
         if(value.isPressed){
             //do stuff
             
-            if(myCollider2d.IsTouchingLayers(LayerMask.GetMask("Ground"))){
+            if(myCapsuleCollider.IsTouchingLayers(LayerMask.GetMask("Ground"))){
                 myRigidbody.velocity += new Vector2(0f, jumpSpeed);
             }
         }
