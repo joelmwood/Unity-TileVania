@@ -5,10 +5,12 @@ using UnityEngine;
 public class EnemyMovement : MonoBehaviour
 {
     [SerializeField] float moveSpeed = 1f;
-    float baseSpeed = 1f;
-    
+
     Rigidbody2D myRigidbody;
     BoxCollider2D myBoxCollider;
+    [SerializeField] PlayerMovement playerMovement;
+
+    bool isPlayerAlive = true;
 
     // Start is called before the first frame update
     void Start()
@@ -20,24 +22,27 @@ public class EnemyMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        checkIfPlayerIsAlive();
+        if (!isPlayerAlive) { myRigidbody.velocity = new Vector2(0f, 0f); return; }
+
         myRigidbody.velocity = new Vector2(moveSpeed, 0f);
     }
 
-    // void OnTriggerEnter2D(Collider2D other) {
-    //     // Debug.Log("Entered: " + other.gameObject.tag);
-    //     if(other.gameObject.tag != "Player"){
-    //         moveSpeed = -moveSpeed;
-    //         FlipEnemySprite();
-    //     }
-    // }
 
-    void OnTriggerExit2D(Collider2D other) {
-        Debug.Log("Exited: " + other.gameObject.tag);
+    void OnTriggerExit2D(Collider2D other)
+    {
+        // Debug.Log("Exited: " + other.gameObject.tag);
         moveSpeed = -moveSpeed;
         FlipEnemySprite();
     }
 
-    void FlipEnemySprite(){
+    void FlipEnemySprite()
+    {
         transform.localScale = new Vector2(-(Mathf.Sign(myRigidbody.velocity.x)), 1f);
+    }
+
+    void checkIfPlayerIsAlive()
+    {
+        isPlayerAlive = playerMovement.GetIsPlayerAlive();
     }
 }
