@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: 231996655}
   m_Layer: 8
   m_Name: Ginger [Player]
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -33,7 +33,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -7.43, y: -2.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 350973354694028361}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -95,7 +96,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 997971891
-  m_SortingLayer: 5
+  m_SortingLayer: 7
   m_SortingOrder: 0
   m_Sprite: {fileID: 1857188551261513057, guid: 45ff7bfd5199bb947a1c5953c08eec5e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -191,6 +192,10 @@ MonoBehaviour:
   jumpSpeed: 12
   climbSpeed: 5
   gravityScaleAtStart: 0
+  deathKick: {x: 5, y: 5}
+  bullet: {fileID: 1714747474882526966, guid: 8aa34d78d5b92a240aa0189613663cd2, type: 3}
+  gun: {fileID: 350973354694028361}
+  isAlive: 1
 --- !u!61 &231996655
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -200,8 +205,8 @@ BoxCollider2D:
   m_GameObject: {fileID: 2770722847608492495}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_Material: {fileID: 6200000, guid: 2f50a7e260d8d7a429b826d45d8397cd, type: 2}
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: -0.0511086, y: -0.46274245}
@@ -217,3 +222,33 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.34525537, y: 0.074515104}
   m_EdgeRadius: 0
+--- !u!1 &5470399406698049123
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 350973354694028361}
+  m_Layer: 8
+  m_Name: Gun
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &350973354694028361
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5470399406698049123}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.486, y: -0.266, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2770722847608492490}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

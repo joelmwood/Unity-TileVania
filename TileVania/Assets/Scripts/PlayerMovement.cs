@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,7 +10,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float jumpSpeed = 12f;
     [SerializeField] float climbSpeed = 5f;
     [SerializeField] float gravityScaleAtStart;
-    [SerializeField] Vector2 deathKick = new Vector2(10f, 10f);
+    [SerializeField] Vector2 deathKick = new Vector2(5f, 5f);
+    [SerializeField] GameObject bullet;
+    [SerializeField] Transform gun;
 
     [SerializeField] public bool isAlive = true;
 
@@ -37,7 +40,15 @@ public class PlayerMovement : MonoBehaviour
         Run();
         FlipSprite();
         ClimbLadder();
+        StopClimbingLadder();
         Die();
+    }
+
+
+
+    void OnFire(InputValue value){
+        if(!isAlive){ return; }
+        Instantiate(bullet, gun.position, Quaternion.Euler(0f, 0f, 90));
     }
 
     void OnMove(InputValue value)
@@ -107,16 +118,27 @@ public class PlayerMovement : MonoBehaviour
         {
             myAnimator.SetBool("IsClimbing", false);
         }
+        
 
+    }
+
+    void StopClimbingLadder()
+    {
+        bool playerHasVerticalSpeed = Mathf.Abs(myRigidbody.velocity.y) > Mathf.Epsilon;
+        if (!playerHasVerticalSpeed && !myFeetCollider.IsTouchingLayers(LayerMask.GetMask("Climbing")))
+        {
+            myAnimator.SetBool("IsClimbing", false);
+        }        
     }
 
     void Die()
     {
-        if (myBodyCollider.IsTouchingLayers(LayerMask.GetMask("Enemies")))
+        if (myBodyCollider.IsTouchingLayers(LayerMask.GetMask("Enemies", "Hazards")))
         {
             isAlive = false;
             myAnimator.SetTrigger("Dying");
             myRigidbody.velocity = deathKick;
+            FindObjectOfType<GameSession>().ProcessPlayerDeath();
         }
     }
 
@@ -124,5 +146,7 @@ public class PlayerMovement : MonoBehaviour
     {
         return isAlive;
     }
+
+    
 
 }
