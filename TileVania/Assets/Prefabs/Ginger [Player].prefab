@@ -96,7 +96,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 997971891
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_Sprite: {fileID: 1857188551261513057, guid: 45ff7bfd5199bb947a1c5953c08eec5e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -193,7 +193,7 @@ MonoBehaviour:
   climbSpeed: 5
   gravityScaleAtStart: 0
   deathKick: {x: 5, y: 5}
-  bullet: {fileID: 1714747474882526966, guid: 8aa34d78d5b92a240aa0189613663cd2, type: 3}
+  bullet: {fileID: 3562684612022250111, guid: 8aa34d78d5b92a240aa0189613663cd2, type: 3}
   gun: {fileID: 350973354694028361}
   isAlive: 1
 --- !u!61 &231996655

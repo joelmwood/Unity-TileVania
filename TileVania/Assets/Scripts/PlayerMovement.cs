@@ -51,7 +51,7 @@ public class PlayerMovement : MonoBehaviour
     void OnFire(InputValue value)
     {
         if (!isAlive) { return; }
-        Instantiate(bullet, gun.position, Quaternion.Euler(0f, 0f, 90));
+        Instantiate(bullet, gun.position, Quaternion.Euler(0f, 0f, 0f));
     }
 
     void OnMove(InputValue value)
