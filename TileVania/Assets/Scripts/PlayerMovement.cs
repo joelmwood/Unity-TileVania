@@ -14,6 +14,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] Vector2 deathKick = new Vector2(5f, 5f);
     [SerializeField] GameObject bullet;
     [SerializeField] Transform gun;
+    int delayInSeconds = 2;
 
     [SerializeField] public bool isAlive = true;
 
@@ -47,8 +48,9 @@ public class PlayerMovement : MonoBehaviour
 
 
 
-    void OnFire(InputValue value){
-        if(!isAlive){ return; }
+    void OnFire(InputValue value)
+    {
+        if (!isAlive) { return; }
         Instantiate(bullet, gun.position, Quaternion.Euler(0f, 0f, 90));
     }
 
@@ -73,12 +75,14 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    void OnQuit(){
+    void OnQuit()
+    {
         Application.Quit();
         Debug.Log("Quitting Game");
     }
 
-    void OnResetScene(){
+    void OnResetScene()
+    {
         FindObjectOfType<GameSession>().ResetScene();
 
     }
@@ -129,7 +133,7 @@ public class PlayerMovement : MonoBehaviour
         {
             myAnimator.SetBool("IsClimbing", false);
         }
-        
+
 
     }
 
@@ -139,19 +143,24 @@ public class PlayerMovement : MonoBehaviour
         if (!playerHasVerticalSpeed && !myFeetCollider.IsTouchingLayers(LayerMask.GetMask("Climbing")))
         {
             myAnimator.SetBool("IsClimbing", false);
-        }        
+        }
     }
 
     void Die()
     {
-        
         if (myBodyCollider.IsTouchingLayers(LayerMask.GetMask("Enemies", "Hazards")))
         {
             isAlive = false;
             myAnimator.SetTrigger("Dying");
             myRigidbody.velocity = deathKick;
-            FindObjectOfType<GameSession>().ProcessPlayerDeath();
+            StartCoroutine(ProcessDeath());
         }
+    }
+    IEnumerator ProcessDeath()
+    {
+        yield return new WaitForSecondsRealtime(delayInSeconds);
+        FindObjectOfType<GameSession>().ProcessPlayerDeath();
+
     }
 
     public bool GetIsPlayerAlive()
@@ -159,6 +168,6 @@ public class PlayerMovement : MonoBehaviour
         return isAlive;
     }
 
-    
+
 
 }
