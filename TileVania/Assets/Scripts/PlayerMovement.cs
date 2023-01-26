@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -72,6 +73,16 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    void OnQuit(){
+        Application.Quit();
+        Debug.Log("Quitting Game");
+    }
+
+    void OnResetScene(){
+        FindObjectOfType<GameSession>().ResetScene();
+
+    }
+
 
 
     void Run()
@@ -133,6 +144,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Die()
     {
+        
         if (myBodyCollider.IsTouchingLayers(LayerMask.GetMask("Enemies", "Hazards")))
         {
             isAlive = false;

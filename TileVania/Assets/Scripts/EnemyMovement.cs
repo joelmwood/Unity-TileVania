@@ -8,7 +8,6 @@ public class EnemyMovement : MonoBehaviour
 
     Rigidbody2D myRigidbody;
     BoxCollider2D myBoxCollider;
-    [SerializeField] PlayerMovement playerMovement;
 
     bool isPlayerAlive = true;
 
@@ -23,9 +22,20 @@ public class EnemyMovement : MonoBehaviour
     void Update()
     {
         checkIfPlayerIsAlive();
-        if (!isPlayerAlive) { myRigidbody.velocity = new Vector2(0f, 0f); return; }
+        if (!isPlayerAlive) { 
+            DontMove();
+        }else{
+            Move();        
+        }
 
-        myRigidbody.velocity = new Vector2(moveSpeed, 0f);
+    }
+
+    void Move(){
+        myRigidbody.velocity = new Vector2(moveSpeed, 0f);        
+    }
+
+    void DontMove(){
+        myRigidbody.velocity = new Vector2(0f, 0f); 
     }
 
 
@@ -43,6 +53,8 @@ public class EnemyMovement : MonoBehaviour
 
     void checkIfPlayerIsAlive()
     {
-        isPlayerAlive = playerMovement.GetIsPlayerAlive();
+        isPlayerAlive = FindObjectOfType<PlayerMovement>().GetIsPlayerAlive();
+        Debug.Log("Player is: " + isPlayerAlive);
     }
 }
+ 
